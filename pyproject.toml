@@ -1,0 +1,35 @@
+[project]
+name = "blender-assets-mcp"
+version = "0.1.0"
+description = "MCP server that finds free models, materials and HDRIs for Blender (Poly Haven, ambientCG, BlenderKit free tier)"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [{ name = "Timothe F" }]
+keywords = ["mcp", "blender", "3d", "assets", "polyhaven", "ambientcg", "blenderkit"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Multimedia :: Graphics :: 3D Modeling",
+]
+dependencies = ["mcp>=1.2,<2"]
+
+[project.urls]
+Repository = "https://github.com/TimotheFCN/blender-assets-mcp"
+
+[project.scripts]
+blender-assets-mcp = "blender_assets_mcp.server:main"
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[build-system]
+requires = ["uv_build>=0.9,<0.14"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
