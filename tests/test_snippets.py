@@ -10,6 +10,7 @@ def test_snippets_are_valid_python_even_with_quotes_in_paths():
         snippets.import_blend_objects(TRICKY, "Chair 'deluxe'"),
         snippets.import_blend_materials(TRICKY),
         snippets.set_world_hdri(TRICKY),
+        snippets.import_gltf(TRICKY, "Chair 'deluxe'"),
         snippets.build_material("Bricks", {"color": TRICKY, "normal": TRICKY}),
     ]
     for source in code:

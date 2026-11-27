@@ -22,6 +22,27 @@ result = {{"collection": coll.name, "objects": added}}
 """
 
 
+def import_gltf(path: Path, name: str) -> str:
+    return f"""import bpy
+if bpy.context.object is not None and bpy.context.object.mode != "OBJECT":
+    bpy.ops.object.mode_set(mode="OBJECT")
+before = set(bpy.data.objects)
+bpy.ops.import_scene.gltf(filepath={str(path)!r})
+coll = bpy.data.collections.new({name!r})
+bpy.context.scene.collection.children.link(coll)
+added = []
+for obj in [o for o in bpy.data.objects if o not in before]:
+    if obj.type in {{"CAMERA", "LIGHT"}}:
+        bpy.data.objects.remove(obj)
+        continue
+    for old in list(obj.users_collection):
+        old.objects.unlink(obj)
+    coll.objects.link(obj)
+    added.append(obj.name)
+result = {{"collection": coll.name, "objects": added}}
+"""
+
+
 def import_blend_materials(path: Path) -> str:
     return f"""import bpy
 with bpy.data.libraries.load({str(path)!r}, link=False) as (src, dst):

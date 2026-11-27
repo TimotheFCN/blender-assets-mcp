@@ -1,13 +1,13 @@
 [project]
 name = "blender-assets-mcp"
 version = "0.1.0"
-description = "MCP server that finds free models, materials and HDRIs for Blender (Poly Haven, ambientCG, BlenderKit free tier)"
+description = "MCP server that finds free models, materials and HDRIs for Blender (Poly Haven, ambientCG, BlenderKit free tier, Sketchfab)"
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
 requires-python = ">=3.10"
 authors = [{ name = "Timothe F" }]
-keywords = ["mcp", "blender", "3d", "assets", "polyhaven", "ambientcg", "blenderkit"]
+keywords = ["mcp", "blender", "3d", "assets", "polyhaven", "ambientcg", "blenderkit", "sketchfab"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "Topic :: Multimedia :: Graphics :: 3D Modeling",
