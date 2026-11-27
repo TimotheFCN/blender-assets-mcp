@@ -30,19 +30,19 @@ the agent runs it with whatever Blender MCP it already has, such as the
 You need [uv](https://docs.astral.sh/uv/). Run it straight from GitHub:
 
 ```sh
-uvx --from git+https://github.com/Rhaluk/blender-assets-mcp blender-assets-mcp
+uvx --from git+https://github.com/TimotheFCN/blender-assets-mcp blender-assets-mcp
 ```
 
 Or install it once and get a `blender-assets-mcp` command:
 
 ```sh
-uv tool install git+https://github.com/Rhaluk/blender-assets-mcp
+uv tool install git+https://github.com/TimotheFCN/blender-assets-mcp
 ```
 
 ### Claude Code
 
 ```sh
-claude mcp add --scope user blender_assets -- uvx --from git+https://github.com/Rhaluk/blender-assets-mcp blender-assets-mcp
+claude mcp add --scope user blender_assets -- uvx --from git+https://github.com/TimotheFCN/blender-assets-mcp blender-assets-mcp
 ```
 
 Add `-e SKETCHFAB_API_TOKEN=your-token` before `--` to enable Sketchfab downloads. See
@@ -55,7 +55,7 @@ In `~/.codex/config.toml`:
 ```toml
 [mcp_servers.blender_assets]
 command = "uvx"
-args = ["--from", "git+https://github.com/Rhaluk/blender-assets-mcp", "blender-assets-mcp"]
+args = ["--from", "git+https://github.com/TimotheFCN/blender-assets-mcp", "blender-assets-mcp"]
 env = { SKETCHFAB_API_TOKEN = "your-token" }  # optional, for Sketchfab downloads
 tool_timeout_sec = 300  # large downloads can take longer than the 60 s default
 ```
@@ -66,10 +66,9 @@ Any MCP client that starts stdio servers works. Use the same command and argumen
 
 ## Sketchfab setup
 
-This fork adds [Sketchfab](https://sketchfab.com) as a fourth source, using the
-[Sketchfab Data API v3](https://sketchfab.com/developers/data-api/v3) and
-[Download API](https://sketchfab.com/developers/download-api). The original server searched
-only Poly Haven, ambientCG and BlenderKit.
+Sketchfab results come from the
+[Sketchfab Data API v3](https://sketchfab.com/developers/data-api/v3) and the
+[Download API](https://sketchfab.com/developers/download-api).
 
 Searching Sketchfab needs no account. Downloading does, because Sketchfab only serves model
 files to signed-in users.
@@ -91,7 +90,7 @@ the MCP client config, not in a file inside this repository.
 Claude Code, running from GitHub:
 
 ```sh
-claude mcp add --scope user blender_assets -e SKETCHFAB_API_TOKEN=your-token -- uvx --from git+https://github.com/Rhaluk/blender-assets-mcp blender-assets-mcp
+claude mcp add --scope user blender_assets -e SKETCHFAB_API_TOKEN=your-token -- uvx --from git+https://github.com/TimotheFCN/blender-assets-mcp blender-assets-mcp
 ```
 
 Claude Code, running from a local clone:
