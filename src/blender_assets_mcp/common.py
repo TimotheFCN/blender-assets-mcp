@@ -6,6 +6,7 @@ import shutil
 import tempfile
 import urllib.parse
 import urllib.request
+import zipfile
 from pathlib import Path
 
 from . import __version__
@@ -22,10 +23,10 @@ def cache_dir() -> Path:
     return Path(base) / "blender-assets"
 
 
-def get_json(url: str, params: dict | None = None) -> dict:
+def get_json(url: str, params: dict | None = None, headers: dict | None = None) -> dict:
     if params:
         url += "?" + urllib.parse.urlencode(params)
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, **(headers or {})})
     with urllib.request.urlopen(req, timeout=30) as resp:
         return json.load(resp)
 
@@ -48,6 +49,18 @@ def inside(root: Path, rel: str) -> Path:
     if not path.is_relative_to(root.resolve()):
         raise ValueError(f"refusing path outside the asset folder: {rel}")
     return path
+
+
+def extract(archive: Path, root: Path) -> None:
+    """Unzip archive into root, refusing entries that would land outside it."""
+    with zipfile.ZipFile(archive) as zf:
+        for member in zf.infolist():
+            if member.is_dir():
+                continue
+            target = inside(root, member.filename)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            with zf.open(member) as src, target.open("wb") as dst:
+                shutil.copyfileobj(src, dst)
 
 
 def safe_name(text: str) -> str:

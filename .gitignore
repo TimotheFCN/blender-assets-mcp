@@ -4,3 +4,19 @@ __pycache__/
 dist/
 .pytest_cache/
 .ruff_cache/
+
+# Secrets: never commit API tokens (SKETCHFAB_API_TOKEN goes in the MCP client config)
+.env
+.env.*
+*.token
+.mcp.json
+.claude/settings.local.json
+
+# Local test output: downloaded assets, Blender files and renders
+.cache/
+blender-assets/
+*.blend
+*.blend1
+*.glb
+*.gltf
+scratch/

@@ -1,11 +1,9 @@
 """ambientCG: CC0 PBR materials and HDRIs (https://ambientcg.com)."""
-import shutil
 import tempfile
-import zipfile
 from pathlib import Path
 
 from . import snippets
-from .common import CC0, asset_dir, download, get_json, inside
+from .common import CC0, asset_dir, download, extract, get_json
 
 TYPES = {"material": "Material", "hdri": "HDRI"}
 # Map file name markers, using the OpenGL normal map that Blender expects.
@@ -39,17 +37,6 @@ def search(text: str, kinds: list[str], limit: int) -> list[dict]:
         for a in assets
         if a.get("dataType") in types
     ]
-
-
-def extract(archive: Path, root: Path) -> None:
-    with zipfile.ZipFile(archive) as zf:
-        for member in zf.infolist():
-            if member.is_dir():
-                continue
-            target = inside(root, member.filename)
-            target.parent.mkdir(parents=True, exist_ok=True)
-            with zf.open(member) as src, target.open("wb") as dst:
-                shutil.copyfileobj(src, dst)
 
 
 def fetch(asset_id: str, resolution: str) -> dict:
